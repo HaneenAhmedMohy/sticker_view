@@ -31,13 +31,10 @@ class StickerView extends StatefulWidget {
         pixelRatio = 0.5;
       }
       // delayed by few seconds because it takes some time to update the state by RenderRepaintBoundary
-      await Future.delayed(const Duration(milliseconds: 700))
-          .then((value) async {
-        RenderRepaintBoundary boundary = stickGlobalKey.currentContext
-            ?.findRenderObject() as RenderRepaintBoundary;
+      await Future.delayed(const Duration(milliseconds: 700)).then((value) async {
+        RenderRepaintBoundary boundary = stickGlobalKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
         ui.Image image = await boundary.toImage(pixelRatio: pixelRatio);
-        ByteData? byteData =
-            await image.toByteData(format: ui.ImageByteFormat.png);
+        ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
         pngBytes = byteData?.buffer.asUint8List();
       });
       // returns Uint8List
@@ -75,11 +72,10 @@ class StickerViewState extends State<StickerView> {
               RepaintBoundary(
                 key: stickGlobalKey,
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                  decoration: const BoxDecoration(
+                    color: Colors.transparent,
                   ),
-                  height:
-                      widget.height ?? MediaQuery.of(context).size.height * 0.7,
+                  height: widget.height ?? MediaQuery.of(context).size.height * 0.7,
                   width: widget.width ?? MediaQuery.of(context).size.width,
                   child:
                       //DraggableStickers class in which stickerList is passed
@@ -104,8 +100,7 @@ class Sticker extends StatefulWidget {
   bool? isText = false;
   // every sticker must be assigned with unique id
   String id;
-  Sticker({Key? key, this.child, this.isText, required this.id})
-      : super(key: key);
+  Sticker({Key? key, this.child, this.isText, required this.id}) : super(key: key);
   @override
   _StickerState createState() => _StickerState();
 }
